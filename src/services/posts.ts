@@ -1,6 +1,6 @@
 // Imports:
 import { config } from '@/config/env-variables';
-import { TNode } from '@/types/posts';
+import { TData, TNode } from '@/types/posts';
 import { gql, request } from 'graphql-request';
 
 export async function getPosts() {
@@ -40,4 +40,51 @@ export async function getPosts() {
   );
 
   return result.postsConnection.edges as TNode[];
+}
+
+export async function getRecentPosts() {
+  const query = gql`
+    query GetPostDetails {
+      posts(orderBy: createdAt_ASC, last: 3) {
+        title
+        featuredImage {
+          url
+        }
+        createdAt
+        slug
+      }
+    }
+  `;
+
+  const result: TData = await request(config.GRAPH_QL_API, query);
+
+  return result.posts;
+}
+
+export async function getSimilarPosts(categories: string[], slug: string) {
+  const query = gql`
+    query GetPostDetails($slug: String!, $categories: [String!]) {
+      posts(
+        where: {
+          slug_not: $slug
+          AND: { categories_some: { slug_in: $categories } }
+        }
+        last: 3
+      ) {
+        title
+        featuredImage {
+          url
+        }
+        createdAt
+        slug
+      }
+    }
+  `;
+
+  const result: TData = await request(config.GRAPH_QL_API, query, {
+    slug,
+    categories,
+  });
+
+  return result.posts;
 }

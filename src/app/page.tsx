@@ -16,7 +16,7 @@ export default function Home() {
             <Posts />
           </Grid.Left>
           <Grid.Right>
-            <Widgets />
+            <Widgets slug="" categories={[]} />
           </Grid.Right>
         </Grid.Wrapper>
       </BodyWrapper>

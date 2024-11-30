@@ -29,3 +29,14 @@ export type TNode = {
     category: TCategory[];
   };
 };
+
+export type TPost = {
+  title: string;
+  featuredImage: TFeaturedImage;
+  createdAt: string;
+  slug: string;
+};
+
+export type TData = {
+  posts: TPost[];
+};

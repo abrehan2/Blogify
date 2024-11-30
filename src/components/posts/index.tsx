@@ -51,7 +51,7 @@ export function Posts() {
                     className="object-cover border-gray-300 border-2 rounded"
                   />
 
-                  <CardTitle className="transition duration-700 cursor-pointer text-lg font-bold">
+                  <CardTitle className="text-lg font-bold">
                     {post?.node.title}
                   </CardTitle>
                 </CardHeader>
