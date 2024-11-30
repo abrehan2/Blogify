@@ -12,4 +12,26 @@
   body {
     @apply antialiased overflow-x-hidden;
   }
+
+  a {
+    @apply text-inherit no-underline;
+  }
+}
+
+@layer components {
+  .arrow-btn {
+    @apply transition-all duration-300 ease-in-out w-[50px];
+  }
+
+  .adjacent-post:hover .arrow-btn {
+    @apply w-[60px];
+  }
+
+  .react-multi-carousel-list .arrow-btn {
+    @apply transition-all duration-300 ease-in-out w-[50px];
+  }
+
+  .react-multi-carousel-list .arrow-btn:hover {
+    @apply w-[60px];
+  }
 }

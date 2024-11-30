@@ -1,10 +1,8 @@
 // Imports:
 import { cn } from '@/lib/tailwind-class/utils';
-import { TWrapper } from '@/types/generics';
+import { TDivProps } from '@/types/generics';
 
-type DivProps = React.HTMLAttributes<HTMLDivElement> & TWrapper;
-
-function Wrapper({ children, className, ...props }: DivProps) {
+function Wrapper({ children, className, ...props }: TDivProps) {
   return (
     <div
       className={cn('grid grid-cols-1 lg:grid-cols-12 gap-12', className)}
@@ -15,7 +13,7 @@ function Wrapper({ children, className, ...props }: DivProps) {
   );
 }
 
-function Left({ children, className, ...props }: DivProps) {
+function Left({ children, className, ...props }: TDivProps) {
   return (
     <div className={cn('lg:col-span-8 col-span-1', className)} {...props}>
       {children}
@@ -23,7 +21,7 @@ function Left({ children, className, ...props }: DivProps) {
   );
 }
 
-function Right({ children, className, ...props }: DivProps) {
+function Right({ children, className, ...props }: TDivProps) {
   return (
     <div className={cn('lg:col-span-4 col-span-1', className)} {...props}>
       {children}

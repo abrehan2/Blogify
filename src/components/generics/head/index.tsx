@@ -1,10 +1,16 @@
 // Imports:
-import Head from 'next/head';
+import Link from 'next/link';
 
-export function HeadComponent({ label }: { label: string }) {
+export function HeadComponent() {
   return (
-    <Head>
-      <title>{label}</title>
-    </Head>
+    <div className="container mx-auto px-10 mb-8">
+      <div className="border-b w-full inline-block border-slate-400 py-8">
+        <div className="md:float-left block">
+          <Link href={'/'}>
+            <span className="cursor-pointer font-bold text-4xl">Blogify</span>
+          </Link>
+        </div>
+      </div>
+    </div>
   );
 }
