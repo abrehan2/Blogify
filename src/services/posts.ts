@@ -1,6 +1,6 @@
 // Imports:
 import { config } from '@/config/env-variables';
-import { TData, TNode } from '@/types/posts';
+import { TCategories, TData, TNode } from '@/types/posts';
 import { gql, request } from 'graphql-request';
 
 export async function getPosts() {
@@ -87,4 +87,19 @@ export async function getSimilarPosts(categories: string[], slug: string) {
   });
 
   return result.posts;
+}
+
+export async function getCategories() {
+  const query = gql`
+    query GetCategories {
+      categories {
+        name
+        slug
+      }
+    }
+  `;
+
+  const result: TCategories = await request(config.GRAPH_QL_API, query);
+
+  return result.categories;
 }

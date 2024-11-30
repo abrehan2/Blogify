@@ -40,3 +40,8 @@ export type TPost = {
 export type TData = {
   posts: TPost[];
 };
+
+export type TCategories = {
+  name: string;
+  slug: string;
+};
