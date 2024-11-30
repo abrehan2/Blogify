@@ -4,6 +4,7 @@ import { Grid } from '@/components/generics/grid-wrapper';
 import { Posts } from '@/components/posts';
 import { Widgets } from '@/components/widgets';
 import { MainLayout } from '@/layouts/main';
+import { MasonaryWrapper } from '@/layouts/masonry';
 
 export const revalidate = 120; // 2 minutes for revalidation (Incremental Static Regeneration).
 
@@ -13,7 +14,9 @@ export default function Home() {
       <BodyWrapper>
         <Grid.Wrapper>
           <Grid.Left>
-            <Posts />
+            <MasonaryWrapper>
+              <Posts />
+            </MasonaryWrapper>
           </Grid.Left>
           <Grid.Right>
             <Widgets />

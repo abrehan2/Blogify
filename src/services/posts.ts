@@ -1,5 +1,6 @@
 // Imports:
 import { config } from '@/config/env-variables';
+import { TNode } from '@/types/posts';
 import { gql, request } from 'graphql-request';
 
 export async function getPosts() {
@@ -38,5 +39,5 @@ export async function getPosts() {
     query
   );
 
-  return result.postsConnection.edges;
+  return result.postsConnection.edges as TNode[];
 }
