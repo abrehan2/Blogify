@@ -23,7 +23,10 @@ function Left({ children, className, ...props }: TDivProps) {
 
 function Right({ children, className, ...props }: TDivProps) {
   return (
-    <div className={cn('lg:col-span-4 col-span-1', className)} {...props}>
+    <div
+      className={cn('lg:col-span-4 col-span-1 space-y-4', className)}
+      {...props}
+    >
       {children}
     </div>
   );

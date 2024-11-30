@@ -42,6 +42,5 @@ export type TData = {
 };
 
 export type TCategories = {
-  name: string;
-  slug: string;
+  categories: TCategory[];
 };

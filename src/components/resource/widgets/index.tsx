@@ -35,7 +35,7 @@ export function Widgets({ categories, slug }: TWidget) {
       transition={{
         type: 'spring',
         stiffness: 100,
-        damping: 25,
+        damping: 30,
       }}
     >
       <div className="lg:sticky relative top-8">
