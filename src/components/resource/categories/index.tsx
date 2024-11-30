@@ -3,6 +3,7 @@
 // Imports:
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Skeleton } from '@/components/ui/skeleton';
 import { getCategories } from '@/services/posts';
 import { TCategories } from '@/types/posts';
 import { motion } from 'framer-motion';
@@ -11,11 +12,13 @@ import { useEffect, useState } from 'react';
 
 export function Categories() {
   const [categories, setCategories] = useState<TCategories['categories']>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     (async () => {
       const fetchCategories = await getCategories();
       setCategories(fetchCategories);
+      setLoading(false);
     })();
   }, []);
 
@@ -38,11 +41,23 @@ export function Categories() {
           </CardHeader>
 
           <CardContent className="space-x-2">
-            {categories.map((catrgory) => (
-              <Badge key={`Category: ${catrgory.slug}`} variant={'destructive'}>
-                <Link href={`/category/${catrgory.slug}`}>{catrgory.name}</Link>
-              </Badge>
-            ))}
+            {loading
+              ? Array.from({ length: 3 }).map((_, index) => (
+                  <Skeleton
+                    key={index}
+                    className="w-20 h-6 rounded-md inline-block"
+                  />
+                ))
+              : categories.map((category) => (
+                  <Badge
+                    key={`Category: ${category.slug}`}
+                    variant={'destructive'}
+                  >
+                    <Link href={`/category/${category.slug}`}>
+                      {category.name}
+                    </Link>
+                  </Badge>
+                ))}
           </CardContent>
         </Card>
       </div>
