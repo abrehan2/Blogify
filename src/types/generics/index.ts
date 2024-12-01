@@ -4,3 +4,5 @@ export type TWrapper = {
 };
 
 export type TDivProps = React.HTMLAttributes<HTMLDivElement> & TWrapper;
+
+export type TSlug = { params: { slug: string } };

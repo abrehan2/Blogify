@@ -32,7 +32,7 @@ export function Categories() {
         damping: 35,
       }}
     >
-      <div className="lg:sticky relative top-8">
+      <div className="lg:sticky relative top-8 pb-10">
         <Card className="cursor-pointer">
           <CardHeader>
             <CardTitle className="text-lg font-semibold border-b border-slate-400 pb-4">

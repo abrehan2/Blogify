@@ -44,3 +44,28 @@ export type TData = {
 export type TCategories = {
   categories: TCategory[];
 };
+
+export type TPostDetails = {
+  post: {
+    author: TAuthor;
+    createdAt: string;
+    slug: string;
+    title: string;
+    excerpt: string;
+    featuredImage: TFeaturedImage;
+    category: TCategories['categories'];
+    content: {
+      raw: any;
+    };
+  };
+};
+
+export type TPostDetailsProviderProps = {
+  slug: string;
+  children: React.ReactNode;
+};
+
+export type TPostDetailsContextType = {
+  postDetails: TPostDetails['post'] | undefined;
+  loading: boolean;
+};

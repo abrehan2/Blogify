@@ -1,6 +1,6 @@
 // Imports:
 import { config } from '@/config/env-variables';
-import { TCategories, TData, TNode } from '@/types/posts';
+import { TCategories, TData, TNode, TPostDetails } from '@/types/posts';
 import { gql, request } from 'graphql-request';
 
 export async function getPosts() {
@@ -102,4 +102,41 @@ export async function getCategories() {
   const result: TCategories = await request(config.GRAPH_QL_API, query);
 
   return result.categories;
+}
+
+export async function getPostDetails(slug: string) {
+  const query = gql`
+    query GetPostDetails($slug: String!) {
+      post(where: { slug: $slug }) {
+        author {
+          id
+          bio
+          name
+          photo {
+            url
+          }
+        }
+        createdAt
+        slug
+        title
+        excerpt
+        featuredImage {
+          url
+        }
+        category {
+          name
+          slug
+        }
+        content {
+          raw
+        }
+      }
+    }
+  `;
+
+  const result: TPostDetails = await request(config.GRAPH_QL_API, query, {
+    slug,
+  });
+
+  return result.post;
 }
