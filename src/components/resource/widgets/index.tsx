@@ -1,8 +1,8 @@
 'use client';
 
 // Imports:
+import { SkeletonCollection } from '@/components/generics/skeleton';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import { getRecentPosts, getSimilarPosts } from '@/services/posts';
 import { TPost } from '@/types/posts';
 import { TWidget } from '@/types/widgets';
@@ -51,17 +51,7 @@ export function Widgets({ categories, slug }: TWidget) {
 
           <CardContent>
             {loading
-              ? Array.from({ length: 3 }).map((_, index) => (
-                  <div key={index} className="flex items-center w-full mb-4">
-                    <div className="w-16 flex-none">
-                      <Skeleton className="w-16 h-16 rounded-md" />
-                    </div>
-                    <div className="flex-grow ml-4">
-                      <Skeleton className="w-24 h-4 mb-2" />
-                      <Skeleton className="w-40 h-6" />
-                    </div>
-                  </div>
-                ))
+              ? SkeletonCollection.WidgetSkeleton()
               : relatedPosts.map((post: TPost) => (
                   <div
                     key={`Title: ${post.title}`}

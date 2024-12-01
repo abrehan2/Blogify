@@ -1,9 +1,9 @@
 'use client';
 
 // Imports:
+import { SkeletonCollection } from '@/components/generics/skeleton';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Skeleton } from '@/components/ui/skeleton';
 import { getCategories } from '@/services/posts';
 import { TCategories } from '@/types/posts';
 import { motion } from 'framer-motion';
@@ -42,12 +42,7 @@ export function Categories() {
 
           <CardContent className="space-x-2">
             {loading
-              ? Array.from({ length: 3 }).map((_, index) => (
-                  <Skeleton
-                    key={index}
-                    className="w-20 h-6 rounded-md inline-block"
-                  />
-                ))
+              ? SkeletonCollection.CategorySkeleton()
               : categories.map((category) => (
                   <Badge
                     key={`Category: ${category.slug}`}
