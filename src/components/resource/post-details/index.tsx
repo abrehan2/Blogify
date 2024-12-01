@@ -1,41 +1,57 @@
 'use client';
 
 // Imports:
+import { Skeleton } from '@/components/ui/skeleton';
 import { usePostDetails } from '@/contexts/post-details';
 import { RichText } from '@graphcms/rich-text-react-renderer';
 import moment from 'moment';
 import Image from 'next/image';
 
 export function PostDetails() {
-  const { postDetails } = usePostDetails();
+  const { loading, postDetails } = usePostDetails();
 
   return (
     <div className="max-w-full mx-auto space-y-5">
       <h1 className="text-4xl font-extrabold text-gray-900 mb-6 leading-tight">
-        {postDetails?.title}
+        {loading ? <Skeleton className="w-3/4 h-10" /> : postDetails?.title}
       </h1>
 
-      {postDetails?.featuredImage?.url && (
-        <Image
-          src={postDetails.featuredImage?.url ?? ''}
-          width={500}
-          height={500}
-          alt={`Post: ${postDetails.title}`}
-          className="w-full object-cover border-gray-300 border-2 rounded"
-        />
+      {loading ? (
+        <Skeleton className="w-full h-60 rounded" />
+      ) : (
+        postDetails?.featuredImage?.url && (
+          <Image
+            src={postDetails.featuredImage?.url ?? ''}
+            width={500}
+            height={500}
+            alt={`Post: ${postDetails.title}`}
+            className="w-full object-cover border-gray-300 border-2 rounded"
+          />
+        )
       )}
 
       <div className="flex items-center text-sm text-gray-600 mb-6">
-        <p className="mr-4">
-          <strong className="font-semibold">{postDetails?.author.name}</strong>{' '}
-          | {moment(postDetails?.createdAt).format('MMMM DD, YYYY')}
-        </p>
-        <span
-          className="bg-gray-200 px-3 py-1 rounded-full text-gray-800 text-xs font-medium"
-          key={postDetails?.category.map((cat) => cat.slug).join('')}
-        >
-          {postDetails?.category.map((cat) => cat.name).join(', ')}
-        </span>
+        {loading ? (
+          <>
+            <Skeleton className="w-32 h-4 mr-4" />
+            <Skeleton className="w-16 h-4" />
+          </>
+        ) : (
+          <>
+            <p className="mr-4">
+              <strong className="font-semibold">
+                {postDetails?.author.name}
+              </strong>{' '}
+              | {moment(postDetails?.createdAt).format('MMMM DD, YYYY')}
+            </p>
+            <span
+              className="bg-gray-200 px-3 py-1 rounded-full text-gray-800 text-xs font-medium"
+              key={postDetails?.category.map((cat) => cat.slug).join('')}
+            >
+              {postDetails?.category.map((cat) => cat.name).join(', ')}
+            </span>
+          </>
+        )}
       </div>
 
       <RichText
@@ -46,7 +62,6 @@ export function PostDetails() {
               {children}
             </h1>
           ),
-
           h2: ({ children }) => (
             <h2 className="text-2xl font-semibold text-gray-800 my-4">
               {children}
