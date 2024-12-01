@@ -7,20 +7,43 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { getCategories } from '@/services/posts';
 import { TCategories } from '@/types/posts';
 import { motion } from 'framer-motion';
-import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export function Categories() {
   const [categories, setCategories] = useState<TCategories['categories']>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
+  const searchParams = new URLSearchParams();
+  const params = new URLSearchParams(searchParams.toString());
 
   useEffect(() => {
-    (async () => {
-      const fetchCategories = await getCategories();
-      setCategories(fetchCategories);
-      setLoading(false);
-    })();
+    let isMounted = true;
+    const fetchCategories = async () => {
+      try {
+        const fetchCategoriesData = await getCategories();
+        if (isMounted) {
+          setCategories(fetchCategoriesData);
+          setLoading(false);
+        }
+      } catch (error) {
+        if (isMounted) {
+          console.error('Error fetching categories:', error);
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchCategories();
+    return () => {
+      isMounted = false;
+    };
   }, []);
+
+  const handleCategoryClick = (slug: string) => {
+    params.set('category', slug);
+    router.push(`/?${params.toString()}`);
+  };
 
   return (
     <motion.div
@@ -45,12 +68,11 @@ export function Categories() {
               ? SkeletonCollection.CategorySkeleton()
               : categories.map((category) => (
                   <Badge
-                    key={`Category: ${category.slug}`}
+                    key={category.slug}
                     variant={'destructive'}
+                    onClick={() => handleCategoryClick(category.slug)}
                   >
-                    <Link href={`/category/${category.slug}`}>
-                      {category.name}
-                    </Link>
+                    {category.name}
                   </Badge>
                 ))}
           </CardContent>

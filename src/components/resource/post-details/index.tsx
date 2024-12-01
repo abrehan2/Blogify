@@ -54,36 +54,38 @@ export function PostDetails() {
         )}
       </div>
 
-      <RichText
-        content={postDetails?.content.raw}
-        renderers={{
-          h1: ({ children }) => (
-            <h1 className="text-3xl font-bold text-gray-800 my-6">
-              {children}
-            </h1>
-          ),
-          h2: ({ children }) => (
-            <h2 className="text-2xl font-semibold text-gray-800 my-4">
-              {children}
-            </h2>
-          ),
-          p: ({ children }) => (
-            <p className="text-lg text-justify leading-relaxed text-gray-700 my-4">
-              {children}
-            </p>
-          ),
-          code_block: ({ children }) => (
-            <pre className="bg-gray-100 p-4 rounded-md overflow-auto">
-              {children}
-            </pre>
-          ),
-          code: ({ children }) => (
-            <code className="bg-gray-100 p-1 rounded-sm text-blue-600">
-              {children}
-            </code>
-          ),
-        }}
-      />
+      {postDetails?.content && (
+        <RichText
+          content={postDetails?.content?.raw}
+          renderers={{
+            h1: ({ children }) => (
+              <h1 className="text-3xl font-bold text-gray-800 my-6">
+                {children}
+              </h1>
+            ),
+            h2: ({ children }) => (
+              <h2 className="text-2xl font-semibold text-gray-800 my-4">
+                {children}
+              </h2>
+            ),
+            p: ({ children }) => (
+              <p className="text-lg text-justify leading-relaxed text-gray-700 my-4">
+                {children}
+              </p>
+            ),
+            code_block: ({ children }) => (
+              <pre className="bg-gray-100 p-4 rounded-md overflow-auto">
+                {children}
+              </pre>
+            ),
+            code: ({ children }) => (
+              <code className="bg-gray-100 p-1 rounded-sm text-blue-600">
+                {children}
+              </code>
+            ),
+          }}
+        />
+      )}
     </div>
   );
 }

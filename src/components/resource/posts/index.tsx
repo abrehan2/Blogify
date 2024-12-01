@@ -16,19 +16,40 @@ import { motion } from 'framer-motion';
 import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
 export function Posts() {
   const [posts, setPosts] = useState<TNode[]>([]);
   const [loading, setLoading] = useState(true);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
-    (async () => {
+    let isMounted = true;
+
+    const fetchPosts = async () => {
+      setLoading(true);
       const fetchedPosts = await getPosts();
-      setPosts(fetchedPosts);
-      setLoading(false);
-    })();
-  }, []);
+
+      if (searchParams.has('category')) {
+        const categorySlug = searchParams.get('category');
+        const filteredPosts = fetchedPosts.filter((post: TNode) =>
+          post.node.category.some((c) => c.slug === categorySlug)
+        );
+        if (isMounted) setPosts(filteredPosts);
+      } else {
+        if (isMounted) setPosts(fetchedPosts);
+      }
+
+      if (isMounted) setLoading(false);
+    };
+
+    fetchPosts();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [searchParams]);
 
   return (
     <>

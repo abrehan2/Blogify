@@ -17,7 +17,6 @@ export default function Page({ params }: TSlug) {
               <PostDetails />
             </Grid.Left>
             <Grid.Right>
-              {/* <Widgets slug="" categories={[]} /> */}
               <Categories />
             </Grid.Right>
           </PostDetailsProvider>

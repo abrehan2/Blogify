@@ -61,29 +61,29 @@ export async function getRecentPosts() {
   return result.posts;
 }
 
-export async function getSimilarPosts(categories: string[], slug: string) {
+export async function getCategoryPosts(slug: string) {
   const query = gql`
-    query GetPostDetails($slug: String!, $categories: [String!]) {
-      posts(
-        where: {
-          slug_not: $slug
-          AND: { categories_some: { slug_in: $categories } }
-        }
-        last: 3
-      ) {
+    query SelectedPosts($slug: [String!]) {
+      posts(where: { category_some: { slug_in: $slug } }) {
         title
+        slug
+        createdAt
+        excerpt
         featuredImage {
           url
         }
-        createdAt
-        slug
+        author {
+          name
+          photo {
+            url
+          }
+        }
       }
     }
   `;
 
   const result: TData = await request(config.GRAPH_QL_API, query, {
-    slug,
-    categories,
+    slug: [slug],
   });
 
   return result.posts;

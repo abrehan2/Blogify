@@ -21,11 +21,21 @@ export function PostDetailsProvider({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    (async () => {
-      const fetchPostDetails = await getPostDetails(slug);
-      setPostDetails(fetchPostDetails);
-      setLoading(false);
-    })();
+    let isMounted = true;
+
+    const fetchPostDetails = async () => {
+      const fetchedPostDetails = await getPostDetails(slug);
+      if (isMounted) {
+        setPostDetails(fetchedPostDetails);
+        setLoading(false);
+      }
+    };
+
+    fetchPostDetails();
+
+    return () => {
+      isMounted = false;
+    };
   }, [slug]);
 
   const values = useMemo(
