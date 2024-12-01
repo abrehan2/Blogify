@@ -9,54 +9,23 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
+import { usePosts } from '@/contexts/posts';
 import { MasonryWrapper } from '@/layouts/masonry';
-import { getPosts } from '@/services/posts';
 import { TNode } from '@/types/posts';
 import { motion } from 'framer-motion';
 import moment from 'moment';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
 
 export function Posts() {
-  const [posts, setPosts] = useState<TNode[]>([]);
-  const [loading, setLoading] = useState(true);
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchPosts = async () => {
-      setLoading(true);
-      const fetchedPosts = await getPosts();
-
-      if (searchParams.has('category')) {
-        const categorySlug = searchParams.get('category');
-        const filteredPosts = fetchedPosts.filter((post: TNode) =>
-          post.node.category.some((c) => c.slug === categorySlug)
-        );
-        if (isMounted) setPosts(filteredPosts);
-      } else {
-        if (isMounted) setPosts(fetchedPosts);
-      }
-
-      if (isMounted) setLoading(false);
-    };
-
-    fetchPosts();
-
-    return () => {
-      isMounted = false;
-    };
-  }, [searchParams]);
+  const { loading, posts } = usePosts();
 
   return (
     <>
       <MasonryWrapper>
         {loading
           ? SkeletonCollection.CardSkeleton()
-          : posts.map((post: TNode, key) => (
+          : posts?.map((post: TNode, key) => (
               <Link
                 href={`/post/${post?.node.slug}`}
                 key={key}

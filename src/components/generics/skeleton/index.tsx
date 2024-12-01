@@ -43,11 +43,15 @@ function CardSkeleton() {
   ));
 }
 
+// ------------------------------------------------------xx------------------------------------------------------------
+
 function CategorySkeleton() {
   return Array.from({ length: 3 }).map((_, index) => (
     <Skeleton key={index} className="w-20 h-6 rounded-md inline-block" />
   ));
 }
+
+// ------------------------------------------------------xx------------------------------------------------------------
 
 function WidgetSkeleton() {
   return Array.from({ length: 3 }).map((_, index) => (
@@ -63,8 +67,46 @@ function WidgetSkeleton() {
   ));
 }
 
+// ------------------------------------------------------xx------------------------------------------------------------
+
+function PaginationSkeleton() {
+  return <Skeleton className="w-12 h-12 rounded-full" />;
+}
+
+// ------------------------------------------------------xx------------------------------------------------------------
+
+function PostDetailsTitleSkeleton() {
+  return <Skeleton className="w-3/4 h-10" />;
+}
+
+// ------------------------------------------------------xx------------------------------------------------------------
+
+function FeaturedImageSkeleton() {
+  return <Skeleton className="w-full h-60 rounded" />;
+}
+
+// ------------------------------------------------------xx------------------------------------------------------------
+
+function AuthorPostDetailsSkeleton() {
+  return <Skeleton className="w-32 h-4 mr-4" />;
+}
+
+function AuthorPostCategorySkeleton() {
+  return <Skeleton className="w-16 h-4" />;
+}
+
+function RichTextEditorSkeleton() {
+  return <Skeleton className="w-full h-64" />;
+}
+
 export const SkeletonCollection = {
   CardSkeleton,
   CategorySkeleton,
   WidgetSkeleton,
+  PaginationSkeleton,
+  PostDetailsTitleSkeleton,
+  FeaturedImageSkeleton,
+  AuthorPostDetailsSkeleton,
+  AuthorPostCategorySkeleton,
+  RichTextEditorSkeleton,
 };
