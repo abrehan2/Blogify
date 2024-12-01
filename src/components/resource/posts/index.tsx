@@ -55,7 +55,7 @@ export function Posts() {
                       </CardTitle>
                     </CardHeader>
                     <CardContent className="pb-0">
-                      <p className="text-sm font-normal text-gray-400 line-clamp-6">
+                      <p className="text-sm font-normal text-justify text-gray-400 line-clamp-6">
                         {post?.node.excerpt}
                       </p>
                     </CardContent>

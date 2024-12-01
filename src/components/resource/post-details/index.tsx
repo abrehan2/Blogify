@@ -51,7 +51,7 @@ export function PostDetails() {
         ) : (
           <>
             <motion.p
-              className="mr-4"
+              className="mr-4 text-xs"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.6 }}
