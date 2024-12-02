@@ -39,7 +39,10 @@ export function PostsProvider({ children }: { children: React.ReactNode }) {
         const filteredPosts = fetchedPosts.filter((post: TNode) =>
           post.node.category.some((c) => c.slug === categorySlug)
         );
-        if (isMounted) setPosts(filteredPosts);
+        if (isMounted) {
+          setPosts(filteredPosts);
+          setCurrentPage(1);
+        }
       } else {
         if (isMounted) setPosts(fetchedPosts);
       }
