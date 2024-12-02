@@ -24,7 +24,7 @@ export function PostsProvider({ children }: { children: React.ReactNode }) {
   const [posts, setPosts] = useState<TNode[] | undefined>(undefined);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
-  const postsPerPage = 2; // Show 2 posts per page
+  const postsPerPage = 3; // Show 3 posts per page
   const searchParams = useSearchParams();
 
   useEffect(() => {
